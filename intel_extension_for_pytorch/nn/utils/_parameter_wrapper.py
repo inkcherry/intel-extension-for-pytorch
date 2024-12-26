@@ -53,6 +53,8 @@ def IPEX_WEIGHT_PREPACK_MODULE_CPU():
                         deepspeed_modules_mapping[module] = _IPEXLinearAllreduce
                     elif issubclass(module, LinearLayer):
                         deepspeed_modules_mapping[module] = _IPEXLinear
+                    else:
+                        raise ValueError(f"Unrecognized module type: {module}")
         torch_modules.update(deepspeed_modules_mapping)
 
     return torch_modules
