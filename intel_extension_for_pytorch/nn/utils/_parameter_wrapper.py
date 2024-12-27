@@ -199,7 +199,7 @@ def get_shared_parameter_status(module, shared_p):
     if deepspeed_modules is not None:
         LinearAllreduce, LinearLayer = deepspeed_modules[:2]
 
-        if isinstance(module, (LinearLayer, LinearAllreduce)):
+        if isinstance(module, (LinearLayer, LinearAllreduce)) or  issubclass(type(module), (LinearLayer, LinearAllreduce)):
             module.weight = torch.nn.Parameter(module.weight, requires_grad=False)
             if module.bias is not None:
                 module.bias = torch.nn.Parameter(module.bias, requires_grad=False)

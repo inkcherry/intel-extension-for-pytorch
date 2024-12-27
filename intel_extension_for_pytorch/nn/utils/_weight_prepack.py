@@ -111,7 +111,7 @@ def may_import_deepspeed_modules():
             from deepspeed.module_inject.layers import LmHeadLinearAllreduce
 
             ds_layers.append(LmHeadLinearAllreduce)
-            ds_layers += list(cls for cls in dslayers.LinearAllreduce.__subclasses__())
+            ds_layers += list(cls for cls in dslayers.LinearAllreduce.__subclasses__() if cls is not LmHeadLinearAllreduce)
             ds_layers += list(cls for cls in dslayers.LinearLayer.__subclasses__())
             return ds_layers
         except ImportError:
